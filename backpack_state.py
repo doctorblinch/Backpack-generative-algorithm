@@ -111,3 +111,14 @@ class Backpack:
     def leave_best_offsprings(self):
         self.offsprings.sort(key=lambda x: x.count_metrics(self.P))
         self.offsprings = self.offsprings[-self.N:]
+
+    def generation_stats(self):
+        if not self.offsprings:
+            assert 'No offsprings!'
+
+        metrics = [i.count_metrics(self.P) for i in self.offsprings]
+        avg_price = sum(metrics) / self.N
+        max_price = max(metrics)
+        min_price = min(metrics)
+
+        return {'avg_price': avg_price, 'min_price': min_price, 'max_price': max_price, 'metrics': metrics}
